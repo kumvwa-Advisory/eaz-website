@@ -217,10 +217,8 @@
   }
 }
 
-/* Subtle wave-line texture behind the membership band, matching the reference UI */
 .waves-bg {
   background-color: #ffffff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='216' viewBox='0 0 360 216'%3E%3Cg fill='none' stroke='%23eef2ef' stroke-width='2'%3E%3Cpath d='M-40 6q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 30q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 54q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 78q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 102q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 126q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 150q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 174q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 198q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 222q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* Navbar hover dropdown "card pop" — hidden by default, pops on hover of the nav item */
@@ -238,10 +236,8 @@
   transform: translateY(0) scale(1);
 }
 
-/* Well-spaced, faint repeated "EAZ" watermark over wavy sections */
 .eaz-mark {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='460' viewBox='0 0 600 460'%3E%3Cg fill='%230f3d25' fill-opacity='0.05' font-family='Arial, Helvetica, sans-serif' font-weight='900' font-size='60' letter-spacing='10'%3E%3Ctext x='140' y='150'%3EEAZ%3C/text%3E%3Ctext x='420' y='400'%3EEAZ%3C/text%3E%3C/g%3E%3C/svg%3E");
-  background-size: 600px 460px;
+  background-image: none;
 }
 
 /* Auto-scrolling partner carousel */

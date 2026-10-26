@@ -40,9 +40,10 @@ export function SiteHeader() {
   const isCurrent = (href: string) =>
     pathname === href || (href !== "/" && pathname?.startsWith(href));
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-sm transition-transform duration-300 ease-in-out ${
-      visible ? "translate-y-0" : "-translate-y-full"
-    }`}>
+    <>
+      <header className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-sm transition-transform duration-300 ease-in-out ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      }`}>
       {/* ── Row 1: Logo + utility links ── */}
       <div className="border-b border-[#e8e8e8]">
         <div className="mx-auto flex w-full max-w-[1320px] items-center justify-between px-6 py-3">
@@ -139,64 +140,67 @@ export function SiteHeader() {
         </div>
       </nav>
 
-      {/* ── Mobile drawer ── */}
-      <div id="mobile-menu" className={`fixed inset-0 z-50 lg:hidden ${open ? "" : "pointer-events-none"}`} aria-hidden={!open}>
-        <div onClick={() => setOpen(false)}
-          className={`absolute inset-0 bg-black/40 transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0"}`} />
-        <div className={`absolute right-0 top-0 flex h-full w-[86%] max-w-[340px] flex-col bg-white shadow-2xl transition-transform duration-300 ease-out ${open ? "translate-x-0" : "translate-x-full"}`}>
-          <div className="flex h-[68px] shrink-0 items-center justify-between border-b border-[#eaeaea] px-4">
-            <Image src="/eaz-logo.png" alt="" width={170} height={50} className="h-11 w-auto object-contain" />
-            <button type="button" onClick={() => setOpen(false)} aria-label="Close menu"
-              className="grid h-9 w-9 place-items-center border border-[#eaeaea] text-ink">
-              <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-                <path d="M4 4l12 12M16 4L4 16" />
-              </svg>
-            </button>
-          </div>
+    </header>
 
-          <nav className="flex-1 overflow-y-auto px-4" aria-label="Mobile">
-            {NAV.map((item) => (
-              <details key={item.href} className="group border-b border-[#eaeaea]">
-                <summary className="flex list-none items-center justify-between py-3.5 [&::-webkit-details-marker]:hidden">
-                  <Link href={item.href} onClick={() => !item.children && setOpen(false)}
-                    className={`flex-1 text-[17px] font-semibold ${isCurrent(item.href) ? "text-brand" : "text-ink"}`}>
-                    {item.label}
-                  </Link>
+      {/* ── Mobile drawer — rendered outside <header> to avoid z-index clipping ── */}
+      {open && (
+        <div id="mobile-menu" className="fixed inset-0 z-[200] lg:hidden" aria-modal role="dialog">
+          <div onClick={() => setOpen(false)} className="absolute inset-0 bg-black/50" />
+          <div className="absolute right-0 top-0 flex h-full w-[85%] max-w-[340px] flex-col bg-white shadow-2xl">
+            <div className="flex h-[64px] shrink-0 items-center justify-between border-b border-[#eaeaea] px-4">
+              <Image src="/eaz-logo.png" alt="" width={160} height={48} className="h-10 w-auto object-contain" />
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close menu"
+                className="grid h-9 w-9 place-items-center border border-[#eaeaea] text-ink">
+                <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+                  <path d="M4 4l12 12M16 4L4 16" />
+                </svg>
+              </button>
+            </div>
+
+            <nav className="flex-1 overflow-y-auto px-4" aria-label="Mobile">
+              {NAV.map((item) => (
+                <details key={item.href} className="group border-b border-[#eaeaea]">
+                  <summary className="flex list-none items-center justify-between py-4 [&::-webkit-details-marker]:hidden">
+                    <Link href={item.href} onClick={() => !item.children && setOpen(false)}
+                      className={`flex-1 text-[17px] font-semibold ${isCurrent(item.href) ? "text-brand" : "text-ink"}`}>
+                      {item.label}
+                    </Link>
+                    {item.children && (
+                      <svg viewBox="0 0 10 6" className="h-2 w-3 text-muted transition-transform group-open:rotate-180"
+                        fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+                        <path d="M1 1l4 4 4-4" />
+                      </svg>
+                    )}
+                  </summary>
                   {item.children && (
-                    <svg viewBox="0 0 10 6" className="h-2 w-3 text-muted transition-transform group-open:rotate-180"
-                      fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-                      <path d="M1 1l4 4 4-4" />
-                    </svg>
+                    <ul className="pb-3 pl-3">
+                      {item.children.map((child) => (
+                        <li key={child.href}>
+                          <Link href={child.href} onClick={() => setOpen(false)}
+                            className="block border-l border-brand/30 py-2.5 pl-3 text-[15px] font-medium text-ink-soft hover:text-brand">
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
                   )}
-                </summary>
-                {item.children && (
-                  <ul className="pb-3 pl-3">
-                    {item.children.map((child) => (
-                      <li key={child.href}>
-                        <Link href={child.href} onClick={() => setOpen(false)}
-                          className="block border-l border-brand/30 py-2 pl-3 text-[15px] font-medium text-ink-soft hover:text-brand">
-                          {child.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </details>
-            ))}
-          </nav>
+                </details>
+              ))}
+            </nav>
 
-          <div className="shrink-0 border-t border-[#eaeaea] p-4 flex flex-col gap-2">
-            <Link href="/members/register" onClick={() => setOpen(false)}
-              className="flex h-11 items-center justify-center gap-2 rounded-[3px] border border-brand-deep text-[13px] font-bold uppercase tracking-[0.06em] text-brand-deep">
-              Register
-            </Link>
-            <Link href="/members/login" onClick={() => setOpen(false)}
-              className="flex h-11 items-center justify-center gap-2 rounded-[3px] bg-brand text-[13px] font-bold uppercase tracking-[0.06em] text-white">
-              Log In
-            </Link>
+            <div className="shrink-0 border-t border-[#eaeaea] p-4 flex flex-col gap-2">
+              <Link href="/members/register" onClick={() => setOpen(false)}
+                className="flex h-11 items-center justify-center border border-brand-deep text-[13px] font-bold uppercase tracking-[0.06em] text-brand-deep">
+                Register
+              </Link>
+              <Link href="/members/login" onClick={() => setOpen(false)}
+                className="flex h-11 items-center justify-center bg-brand text-[13px] font-bold uppercase tracking-[0.06em] text-white">
+                Log In
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      )}
+    </>
   );
 }

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { POSTS, type Post } from "@/data/content";
 import { HeroSlider } from "@/components/site/hero-slider";
 
@@ -67,42 +67,54 @@ const TESTIMONIALS = [
 
 function InsightsCarousel({ posts }: { posts: Post[] }) {
   const [offset, setOffset] = useState(0);
-  const visible = 4;
-  const max = Math.max(0, posts.length - visible);
+  const [visibleCount, setVisibleCount] = useState(4);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      setVisibleCount(w < 640 ? 1 : w < 1024 ? 2 : 4);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const max = Math.max(0, posts.length - visibleCount);
+  const safeOffset = Math.min(offset, max);
 
   return (
-    <div className="flex gap-8 lg:gap-12">
-      {/* Left: title + nav */}
-      <div className="flex w-[220px] shrink-0 flex-col justify-between lg:w-[260px]">
+    <div>
+      {/* Header row */}
+      <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-[30px] font-bold leading-[1.15] text-ink lg:text-[38px]">
+          <h2 className="text-[28px] font-bold leading-[1.15] text-ink sm:text-[34px] lg:text-[38px]">
             Latest Insights
           </h2>
-          <p className="mt-4 text-[15px] leading-relaxed text-[#5c6b77] lg:text-[16px]">
+          <p className="mt-3 max-w-sm text-[15px] leading-relaxed text-[#5c6b77]">
             Stay informed with the latest reports, expert articles, events and economic news.
           </p>
         </div>
-        <div className="mt-6 flex flex-col gap-2">
-          <button type="button" onClick={() => setOffset((o) => Math.max(0, o - 1))} disabled={offset === 0}
-            className="grid h-11 w-11 place-items-center rounded-full border border-brand text-brand transition-colors hover:bg-brand hover:text-white disabled:opacity-30">
+        <div className="flex shrink-0 gap-2 pt-1">
+          <button type="button" onClick={() => setOffset((o) => Math.max(0, o - 1))} disabled={safeOffset === 0}
+            className="grid h-10 w-10 place-items-center rounded-full border border-brand text-brand transition-colors hover:bg-brand hover:text-white disabled:opacity-30">
             &#8249;
           </button>
-          <button type="button" onClick={() => setOffset((o) => Math.min(max, o + 1))} disabled={offset >= max}
-            className="grid h-11 w-11 place-items-center rounded-full border border-brand text-brand transition-colors hover:bg-brand hover:text-white disabled:opacity-30">
+          <button type="button" onClick={() => setOffset((o) => Math.min(max, o + 1))} disabled={safeOffset >= max}
+            className="grid h-10 w-10 place-items-center rounded-full border border-brand text-brand transition-colors hover:bg-brand hover:text-white disabled:opacity-30">
             &#8250;
           </button>
         </div>
       </div>
 
       {/* Cards */}
-      <div className="flex min-w-0 flex-1 gap-5 overflow-hidden">
-        {posts.slice(offset, offset + visible).map((post) => (
+      <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {posts.slice(safeOffset, safeOffset + visibleCount).map((post) => (
           <Link key={post.slug}
             href={post.type === "article" ? `/articles/${post.slug}` : post.type === "news" ? `/news/${post.slug}` : `/notices/${post.slug}`}
-            className="group flex w-[calc(25%-15px)] shrink-0 flex-col">
+            className="group flex flex-col">
             <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#e8e8e8]">
               {post.image ? (
-                <Image src={post.image} alt={post.imageAlt ?? ""} fill sizes="240px"
+                <Image src={post.image} alt={post.imageAlt ?? ""} fill sizes="(max-width:640px) 100vw, (max-width:1024px) 50vw, 25vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105" />
               ) : (
                 <div className="h-full w-full bg-brand-soft" />
