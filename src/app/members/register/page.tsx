@@ -22,9 +22,10 @@ export default function MemberRegisterPage() {
 
       <section className="bg-white py-12 lg:py-16">
         <div className="container-page">
-          <div className="mb-6 border-b border-[#eaeaea] pb-5">
-            <h2 className="text-[18.5px] font-bold text-ink" style={{ textTransform: "none" }}>Your Details</h2>
-            <p className="mt-1 text-[13px] text-[#475467]">
+          <div className="mb-8">
+            <h2 className="text-[28px] font-bold text-[#0f3d25]">Your Details</h2>
+            <div className="mt-3 h-[3px] w-40 bg-gradient-to-r from-brand to-brand-bright" />
+            <p className="mt-4 text-[16px] text-[#5c6b77]">
               Fields marked <span className="font-bold text-[#dc2626]">*</span> are required. You can apply for membership immediately after registering.
             </p>
           </div>

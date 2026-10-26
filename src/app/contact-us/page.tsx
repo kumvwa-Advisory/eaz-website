@@ -1,18 +1,16 @@
-import Link from "next/link";
-import type { Metadata } from "next";
+import { ArrowWedgeButton } from "@/components/site/button-wedge";
 import { ContactForm } from "@/components/site/contact-form";
 import { PageHeader } from "@/components/site/page-header";
+import { CARD, CardHeading, GREEN_BAR, SectionHeading } from "@/components/site/section-heading";
 import { ORG } from "@/data/site";
+import Link from "next/link";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
     "Contact the Economics Association of Zambia: address, telephone, email and enquiry form.",
 };
-
-const RULE = "border-[#eaeaea]";
-const CHIP =
-  "inline-flex items-center gap-1.5 rounded-[5px] border border-[#cad4e5] bg-white px-3.5 py-1.5 text-[13px] font-bold text-brand transition-colors hover:border-brand hover:bg-brand hover:text-white";
 
 function IconWhatsApp() {
   return (
@@ -21,7 +19,6 @@ function IconWhatsApp() {
     </svg>
   );
 }
-
 
 function SocialIcon({ label }: { label: string }) {
   if (label === "Facebook")
@@ -53,25 +50,18 @@ export default function ContactPage() {
         lead="The Secretariat is based in Lusaka. Enquiries may be made by telephone, email or using the form below."
       />
 
-      <section className="bg-paper py-14 lg:py-16">
-        <div className="container-page grid gap-10 lg:grid-cols-[1fr_300px] lg:gap-12">
+      <section className="waves-bg relative isolate overflow-hidden py-16 lg:py-20">
+        <div aria-hidden className="eaz-mark pointer-events-none absolute inset-0 z-0" />
+
+        <div className="container-page relative grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
 
           {/* ── Form ── */}
           <div>
-            <div className={`mb-8 border-b pb-4 ${RULE}`}>
-              <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                Get in touch
-              </p>
-              <div className="mt-2 h-[3px] w-8 bg-brand" />
-              <h2 className="mt-4 text-[26px] font-semibold leading-[1.2] text-ink sm:text-[28.8px]">
-                Send an enquiry
-              </h2>
-              <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-[#6c757d]">
-                Please give as much detail as you can so that your message reaches the right desk.
-                Fields marked with an asterisk are required.
-              </p>
-            </div>
-            <div className="rounded-[6px] border border-[#eaeaea] bg-white p-6 sm:p-8">
+            <SectionHeading
+              title="Send an enquiry"
+              note="Please give as much detail as you can so that your message reaches the right desk. Fields marked with an asterisk are required."
+            />
+            <div className={`${CARD} p-6 sm:p-8`}>
               <ContactForm />
             </div>
           </div>
@@ -80,117 +70,106 @@ export default function ContactPage() {
           <aside className="space-y-6">
 
             {/* Address */}
-            <div className={`rounded-[6px] border ${RULE} bg-white p-5`}>
-              <div className={`border-b pb-3 ${RULE}`}>
-                <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                  Location
-                </p>
-                <h2 className="mt-1 text-[18px] font-semibold text-ink">Secretariat</h2>
+            <div className={CARD}>
+              <div className="p-6">
+                <CardHeading eyebrow="Location" title="Secretariat" />
+                <address className="mt-4 space-y-1 not-italic text-[16px] text-[#5c6b77]">
+                  <p className="font-bold text-ink">{ORG.name}</p>
+                  {ORG.address.map((line) => (
+                    <span key={line} className="block">{line}</span>
+                  ))}
+                </address>
               </div>
-              <address className="mt-4 space-y-1 text-[14px] not-italic text-[#6c757d]">
-                <p className="font-semibold text-ink">{ORG.name}</p>
-                {ORG.address.map((line) => (
-                  <span key={line} className="block">{line}</span>
-                ))}
-              </address>
+              <div className={GREEN_BAR} />
             </div>
 
             {/* Telephone */}
-            <div className={`rounded-[6px] border ${RULE} bg-white p-5`}>
-              <div className={`border-b pb-3 ${RULE}`}>
-                <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                  Call us
-                </p>
-                <h2 className="mt-1 text-[18px] font-semibold text-ink">Telephone</h2>
-              </div>
-              <div className="mt-4 space-y-2 text-[14px]">
-                <a href={`tel:${ORG.phoneHref}`} className="flex items-center gap-2 text-ink hover:text-brand">
-                  <IconWhatsApp />
-                  <span className="font-medium">{ORG.phone}</span>
-                </a>
-                {ORG.alternatePhones.map((phone) => (
-                  <a
-                    key={phone}
-                    href={`tel:${phone.replace(/[^+\d]/g, "")}`}
-                    className="tabular block text-[#6c757d] hover:text-brand"
-                  >
-                    {phone}
+            <div className={CARD}>
+              <div className="p-6">
+                <CardHeading eyebrow="Call us" title="Telephone" />
+                <div className="mt-4 space-y-2 text-[16px]">
+                  <a href={`tel:${ORG.phoneHref}`} className="flex items-center gap-2 font-bold text-ink hover:text-brand">
+                    <IconWhatsApp />
+                    <span>{ORG.phone}</span>
                   </a>
-                ))}
+                  {ORG.alternatePhones.map((phone) => (
+                    <a
+                      key={phone}
+                      href={`tel:${phone.replace(/[^+\d]/g, "")}`}
+                      className="tabular block text-[#5c6b77] hover:text-brand"
+                    >
+                      {phone}
+                    </a>
+                  ))}
+                </div>
               </div>
+              <div className={GREEN_BAR} />
             </div>
 
             {/* Email */}
-            <div className={`rounded-[6px] border ${RULE} bg-white p-5`}>
-              <div className={`border-b pb-3 ${RULE}`}>
-                <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                  Write to us
-                </p>
-                <h2 className="mt-1 text-[18px] font-semibold text-ink">Email</h2>
+            <div className={CARD}>
+              <div className="p-6">
+                <CardHeading eyebrow="Write to us" title="Email" />
+                <ul className="mt-4 space-y-4">
+                  {[
+                    { label: "Secretariat", email: ORG.email },
+                    { label: "Membership matters", email: ORG.membershipEmail },
+                    { label: "General information", email: ORG.infoEmail },
+                  ].map((item) => (
+                    <li key={item.email}>
+                      <span className="block text-[12px] font-bold uppercase tracking-[0.1em] text-[#5c6b77]">
+                        {item.label}
+                      </span>
+                      <a
+                        href={`mailto:${item.email}`}
+                        className="mt-0.5 block break-words text-[16px] font-bold text-ink hover:text-brand"
+                      >
+                        {item.email}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="mt-4 space-y-4">
-                {[
-                  { label: "Secretariat", email: ORG.email },
-                  { label: "Membership matters", email: ORG.membershipEmail },
-                  { label: "General information", email: ORG.infoEmail },
-                ].map((item) => (
-                  <li key={item.email}>
-                    <span className="block text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#6c757d]">
-                      {item.label}
-                    </span>
-                    <a
-                      href={`mailto:${item.email}`}
-                      className="mt-0.5 block break-words text-[14px] font-medium text-ink hover:text-brand"
-                    >
-                      {item.email}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <div className={GREEN_BAR} />
             </div>
 
             {/* Membership callout */}
-            <div className="rounded-[6px]  bg-brand-tint p-5">
-              <p className="font-sans text-[11px] font-bold uppercase tracking-[0.14em] text-gold-ink">
-                Membership
-              </p>
-              <p className="mt-1 text-[15px] font-semibold text-ink">Apply for membership</p>
-              <p className="mt-2 text-[14px] leading-relaxed text-[#6c757d]">
+            <div className="rounded-[2px] border-2 border-brand-bright bg-white p-6">
+              <p className="text-[13px] font-bold uppercase tracking-[0.12em] text-[#0f3d25]">Membership</p>
+              <p className="mt-2 text-[19px] font-bold text-ink">Apply for membership</p>
+              <p className="mt-2 text-[16px] leading-[1.6] text-[#5c6b77]">
                 Register on the website before applying for membership. Applications made through
                 the website reach the Membership desk directly.
               </p>
-              <div className="mt-4 flex flex-col gap-2">
-                <Link href="/members/register" className={CHIP}>
-                  Register on the website <span aria-hidden>→</span>
-                </Link>
-                <Link href="/membership#apply" className={CHIP}>
-                  Membership application <span aria-hidden>→</span>
+              <div className="mt-5 space-y-3">
+                <ArrowWedgeButton href="/members/register">Register on the website</ArrowWedgeButton>
+                <Link href="/membership#apply"
+                  className="block border border-[#0f3d25] px-6 py-3 text-center text-[16px] font-bold text-[#0f3d25] transition-colors hover:bg-[#0f3d25] hover:text-white">
+                  Membership application
                 </Link>
               </div>
             </div>
 
             {/* Social */}
-            <div className={`rounded-[6px] border ${RULE} bg-white p-5`}>
-              <div className={`border-b pb-3 ${RULE}`}>
-                <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                  Social media
-                </p>
-                <h2 className="mt-1 text-[18px] font-semibold text-ink">Follow the Association</h2>
+            <div className={CARD}>
+              <div className="p-6">
+                <CardHeading eyebrow="Social media" title="Follow the Association" />
+                <div className="mt-4 flex gap-3">
+                  {ORG.social.map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label}
+                      className="grid h-11 w-11 place-items-center border border-[#e8ebe8] text-ink transition-colors hover:border-brand hover:bg-brand hover:text-white"
+                    >
+                      <SocialIcon label={item.label} />
+                    </a>
+                  ))}
+                </div>
               </div>
-              <div className="mt-4 flex gap-3">
-                {ORG.social.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={item.label}
-                    className="grid h-10 w-10 place-items-center rounded-[4px] border border-[#eaeaea] text-ink transition-colors hover:border-brand hover:text-brand"
-                  >
-                    <SocialIcon label={item.label} />
-                  </a>
-                ))}
-              </div>
+              <div className={GREEN_BAR} />
             </div>
 
           </aside>

@@ -1,19 +1,15 @@
+import { PageHeader } from "@/components/site/page-header";
+import { CARD, CardHeading, GREEN_BAR, SectionHeading } from "@/components/site/section-heading";
+import { EVENTS } from "@/data/content";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/site/page-header";
-import { EVENTS } from "@/data/content";
-import { ORG } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Conferences",
   description:
     "Conferences and summits of the Economics Association of Zambia, including the National Economic Summit and the Annual General Meeting.",
 };
-
-const RULE = "border-[#eaeaea]";
-const CHIP =
-  "inline-flex items-center gap-1.5 rounded-[5px] border border-[#cad4e5] bg-white px-3.5 py-1.5 text-[13px] font-bold text-brand transition-colors hover:border-brand hover:bg-brand hover:text-white";
 
 const AGM_NOTICES = [
   {
@@ -41,60 +37,46 @@ export default function ConferencesPage() {
         lead="The Association's conferences and summits, with dates, venues and the officer to contact for each."
       />
 
-      {/* ── Conferences & Summits ── */}
-      <section className="bg-white py-14 lg:py-16">
-        <div className="container-page grid gap-10 lg:grid-cols-[1fr_300px] lg:gap-12">
+      {/* ── Conferences & Summits — wavy watermark background ── */}
+      <section className="waves-bg relative isolate overflow-hidden py-16 lg:py-20">
+        <div aria-hidden className="eaz-mark pointer-events-none absolute inset-0 z-0" />
+
+        <div className="container-page relative grid gap-12 lg:grid-cols-[1fr_320px] lg:gap-16">
 
           <div>
-            {/* Section head */}
-            <div className={`mb-8 flex flex-wrap items-end justify-between gap-4 border-b pb-4 ${RULE}`}>
-              <div>
-                <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                  Events
-                </p>
-                <div className="mt-2 h-[3px] w-8 bg-brand" />
-                <h2 className="mt-4 text-[26px] font-semibold leading-[1.2] text-ink sm:text-[28.8px]">
-                  Conferences &amp; Summits
-                </h2>
-              </div>
-            </div>
+            <SectionHeading title="Conferences & Summits" />
 
             {/* Event cards */}
-            <ul className="space-y-6">
+            <ul className="flex flex-col gap-8">
               {EVENTS.map((event) => (
-                <li key={event.title} className={`rounded-[6px] border ${RULE} bg-white overflow-hidden`}>
-                  <div className="grid sm:grid-cols-[1fr_220px]">
-                    <div className="p-6">
-                      <div className="flex items-center gap-2">
-                        <span className="inline-block rounded-[3px] bg-gold-bright px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-brand-ink">
+                <li key={event.title} className={`${CARD} flex flex-col overflow-hidden`}>
+                  <div className="grid flex-1 sm:grid-cols-[1fr_220px]">
+                    <div className="p-6 sm:p-8">
+                      <div className="flex items-center gap-3">
+                        <span className="bg-brand px-2 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-white">
                           {event.status}
                         </span>
-                        <span className="tabular text-[12px] text-[#6c757d]">{event.date}</span>
+                        <span className="tabular text-[14px] font-medium text-[#5c6b77]">{event.date}</span>
                       </div>
-                      <h3 className="mt-3 text-[19px] font-bold leading-snug text-ink">
+                      <h3 className="mt-4 text-[21px] font-bold leading-snug text-ink">
                         {event.title}
                       </h3>
-                      <p className="mt-2 text-[14px] leading-relaxed text-[#6c757d]">
+                      <p className="mt-2.5 text-[16px] leading-[1.65] text-[#5c6b77]">
                         {event.summary}
                       </p>
 
-                      <dl className={`mt-4 grid gap-x-6 gap-y-3 border-t pt-4 text-[13.5px] sm:grid-cols-2 ${RULE}`}>
-                        <div>
-                          <dt className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#6c757d]">Dates</dt>
-                          <dd className="mt-0.5 font-medium text-ink">{event.dates}</dd>
-                        </div>
-                        <div>
-                          <dt className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#6c757d]">Venue</dt>
-                          <dd className="mt-0.5 font-medium text-ink">{event.venue}</dd>
-                        </div>
-                        <div>
-                          <dt className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#6c757d]">Contact person</dt>
-                          <dd className="mt-0.5 font-medium text-ink">{event.contact}</dd>
-                        </div>
-                        <div>
-                          <dt className="text-[10.5px] font-bold uppercase tracking-[0.1em] text-[#6c757d]">Contact phone</dt>
-                          <dd className="tabular mt-0.5 font-medium text-ink">{event.contactPhone}</dd>
-                        </div>
+                      <dl className="mt-5 grid gap-x-8 gap-y-4 border-t border-[#e8ebe8] pt-5 sm:grid-cols-2">
+                        {[
+                          { dt: "Dates", dd: event.dates, tabular: false },
+                          { dt: "Venue", dd: event.venue, tabular: false },
+                          { dt: "Contact person", dd: event.contact, tabular: false },
+                          { dt: "Contact phone", dd: event.contactPhone, tabular: true },
+                        ].map((field) => (
+                          <div key={field.dt}>
+                            <dt className="text-[12px] font-bold uppercase tracking-[0.1em] text-[#5c6b77]">{field.dt}</dt>
+                            <dd className={`mt-0.5 text-[16px] font-medium text-ink ${field.tabular ? "tabular" : ""}`}>{field.dd}</dd>
+                          </div>
+                        ))}
                       </dl>
                     </div>
 
@@ -108,82 +90,69 @@ export default function ConferencesPage() {
                       />
                     </div>
                   </div>
+                  <div className={GREEN_BAR} />
                 </li>
               ))}
             </ul>
 
             {/* General meetings */}
-            <div className={`mt-10 border-b pb-4 ${RULE}`}>
-              <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                Governance
+            <div className="mt-14">
+              <SectionHeading title="General Meetings" />
+              <p className="max-w-2xl text-[16px] leading-[1.75] text-[#5c6b77]">
+                The Annual General Meeting and any Extra-Ordinary General Meeting are convened by
+                notice to members. The notices for 2026 are published in full, together with the
+                nomination documents, in the notices section.
               </p>
-              <div className="mt-2 h-[3px] w-8 bg-brand" />
-              <h2 className="mt-4 text-[26px] font-semibold leading-[1.2] text-ink sm:text-[28.8px]">
-                General Meetings
-              </h2>
-            </div>
-            <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-[#6c757d]">
-              The Annual General Meeting and any Extra-Ordinary General Meeting are convened by
-              notice to members. The notices for 2026 are published in full, together with the
-              nomination documents, in the notices section.
-            </p>
-            <ul className="mt-5 space-y-3">
-              {AGM_NOTICES.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="group flex gap-5 rounded-[6px] border border-[#eaeaea] bg-white p-4 transition duration-300 hover:border-brand/30 hover:shadow-[0_8px_24px_-12px_rgba(0,0,0,0.15)]"
-                  >
-                    <time className="tabular mt-0.5 shrink-0 text-[12px] font-semibold text-gold-ink">
+              <ul className="mt-6 flex flex-col gap-4">
+                {AGM_NOTICES.map((item) => (
+                  <li key={item.href} className={`${CARD} group flex gap-5 p-5 transition duration-300 hover:shadow-[0_10px_28px_-12px_rgba(0,0,0,0.2)]`}>
+                    <time className="tabular shrink-0 text-[14px] font-bold text-brand">
                       {item.date}
                     </time>
-                    <span className="text-[15px] font-semibold leading-snug text-ink transition-colors group-hover:text-brand">
+                    <Link
+                      href={item.href}
+                      className="text-[17px] font-bold leading-snug text-ink transition-colors hover:text-brand"
+                    >
                       {item.label}
-                    </span>
-                    <span aria-hidden className="ml-auto shrink-0 text-[#ccc] transition-colors group-hover:text-brand">→</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    </Link>
+                    <span aria-hidden className="ml-auto shrink-0 self-center text-[#c9c9c9] transition-colors group-hover:text-brand">→</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* ── Sidebar ── */}
           <aside className="space-y-6">
 
-      
-
             {/* Brown bag */}
-            <div className={`rounded-[6px] border ${RULE} bg-white p-5`}>
-              <div className={`border-b pb-3 ${RULE}`}>
-                <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                  Virtual sessions
+            <div className={CARD}>
+              <div className="p-6">
+                <CardHeading eyebrow="Virtual sessions" title="Brown Bag Discussions" />
+                <p className="mt-4 text-[16px] leading-[1.65] text-[#5c6b77]">
+                  The Association convenes regular brown bag meetings, held virtually, on national
+                  economic questions. Reports from past sessions are published as articles.
                 </p>
-                <h2 className="mt-1 text-[18px] font-semibold text-ink">Brown Bag Discussions</h2>
+                <Link href="/articles" className="mt-4 inline-flex items-center gap-1.5 text-[16px] font-bold text-brand hover:text-brand-dark">
+                  Read articles <span aria-hidden>→</span>
+                </Link>
               </div>
-              <p className="mt-3 text-[14px] leading-relaxed text-[#6c757d]">
-                The Association convenes regular brown bag meetings, held virtually, on national
-                economic questions. Reports from past sessions are published as articles.
-              </p>
-              <Link href="/articles" className={`mt-4 ${CHIP}`}>
-                Read articles <span aria-hidden>→</span>
-              </Link>
+              <div className={GREEN_BAR} />
             </div>
 
             {/* Media */}
-            <div className={`rounded-[6px] border ${RULE} bg-white p-5`}>
-              <div className={`border-b pb-3 ${RULE}`}>
-                <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                  Press
+            <div className={CARD}>
+              <div className="p-6">
+                <CardHeading eyebrow="Press" title="Media" />
+                <p className="mt-4 text-[16px] leading-[1.65] text-[#5c6b77]">
+                  Media representatives wishing to cover a conference should write to the Secretariat
+                  in advance for accreditation.
                 </p>
-                <h2 className="mt-1 text-[18px] font-semibold text-ink">Media</h2>
+                <Link href="/contact-us" className="mt-4 inline-flex items-center gap-1.5 text-[16px] font-bold text-brand hover:text-brand-dark">
+                  Contact us <span aria-hidden>→</span>
+                </Link>
               </div>
-              <p className="mt-3 text-[14px] leading-relaxed text-[#6c757d]">
-                Media representatives wishing to cover a conference should write to the Secretariat
-                in advance for accreditation.
-              </p>
-              <Link href="/contact-us" className={`mt-4 ${CHIP}`}>
-                Contact us <span aria-hidden>→</span>
-              </Link>
+              <div className={GREEN_BAR} />
             </div>
 
           </aside>

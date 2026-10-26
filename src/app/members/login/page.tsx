@@ -1,7 +1,7 @@
-import Link from "next/link";
 import type { Metadata } from "next";
 import { MemberLoginForm } from "@/components/site/member-login-form";
 import { PageHeader } from "@/components/site/page-header";
+import { SectionHeading } from "@/components/site/section-heading";
 import { ORG } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -42,11 +42,12 @@ export default function MemberLoginPage() {
 
           {/* ── Form ── */}
           <div>
-            <div className="mb-6 border-b border-[#eaeaea] pb-5">
-              <h2 className="text-[18.5px] font-bold text-ink" style={{ textTransform: "none" }}>
+            <div className="mb-8">
+              <h2 className="text-[28px] font-bold text-[#0f3d25]">
                 Sign in
               </h2>
-              <p className="mt-1 text-[13px] text-[#6c757d]">
+              <div className="mt-3 h-[3px] w-40 bg-gradient-to-r from-brand to-brand-bright" />
+              <p className="mt-4 text-[16px] text-[#5c6b77]">
                 Use the username or email address registered with the Association.
               </p>
             </div>
@@ -56,25 +57,15 @@ export default function MemberLoginPage() {
 
           {/* ── Right panel ── */}
           <div>
-            <div className="mb-6 border-b border-[#eaeaea] pb-4">
-              <p className="font-sans text-[12px] font-medium uppercase tracking-[2px] text-gold-ink">
-                Members area
-              </p>
-              <div className="mt-2 h-[3px] w-8 bg-brand" />
-              <h2 className="mt-4 text-[22px] font-semibold text-ink" style={{ textTransform: "none" }}>
-                What you can access
-              </h2>
-            </div>
+            <SectionHeading title="What you can access" />
 
-            <ul className="space-y-3">
-              {ACCESS.map((item, i) => (
-                <li key={item.title} className="flex gap-4 rounded-[4px] border border-[#eaeaea] bg-paper p-4">
-                  <span className="mt-0.5 font-sans text-[12px] font-bold text-gold-ink">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+            <ul className="mt-10 flex flex-col gap-4">
+              {ACCESS.map((item) => (
+                <li key={item.title} className="flex gap-4 bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.08)] ring-1 ring-black/5">
+                  <span className="mt-1.5 h-3.5 w-3.5 shrink-0 border-2 border-brand-bright" aria-hidden />
                   <div>
-                    <p className="text-[14px] font-semibold text-ink">{item.title}</p>
-                    <p className="mt-0.5 text-[13.5px] leading-relaxed text-[#6c757d]">{item.detail}</p>
+                    <p className="text-[17px] font-bold text-ink">{item.title}</p>
+                    <p className="mt-1 text-[15px] leading-[1.65] text-[#5c6b77]">{item.detail}</p>
                   </div>
                 </li>
               ))}
@@ -82,11 +73,11 @@ export default function MemberLoginPage() {
 
         
 
-            <p className="mt-5 text-[13px] leading-relaxed text-[#aaa]">
+            <p className="mt-6 text-[15px] leading-relaxed text-[#7a7a7a]">
               Trouble signing in? Contact the Secretariat on{" "}
-              <a href={`tel:${ORG.phoneHref}`} className="text-[#6c757d] hover:text-brand">{ORG.phone}</a>
+              <a href={`tel:${ORG.phoneHref}`} className="font-bold text-[#5c6b77] hover:text-brand">{ORG.phone}</a>
               {" "}or{" "}
-              <a href={`mailto:${ORG.membershipEmail}`} className="text-[#6c757d] hover:text-brand">{ORG.membershipEmail}</a>.
+              <a href={`mailto:${ORG.membershipEmail}`} className="font-bold text-[#5c6b77] hover:text-brand">{ORG.membershipEmail}</a>.
             </p>
           </div>
 

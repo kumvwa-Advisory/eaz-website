@@ -40,11 +40,11 @@ export function PageHeader({
             {/* Left accent bar */}
             <div className="mt-1 w-1 shrink-0 self-stretch bg-brand" aria-hidden />
             <div>
-              <h1 className="rise text-[32px] font-semibold leading-[1.2] text-ink sm:text-[40px]">
+              <h1 className="rise text-[36px] font-bold leading-[1.15] text-[#0f3d25] sm:text-[46px]">
                 {title}
               </h1>
               {lead ? (
-                <p className="rise-late mt-3 max-w-2xl text-[16px] leading-[1.6] text-[#6c757d]">
+                <p className="rise-late mt-4 max-w-2xl text-[18px] leading-[1.7] text-[#5c6b77]">
                   {lead}
                 </p>
               ) : null}

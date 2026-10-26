@@ -41,18 +41,18 @@
     background-color: #ffffff;
     color: #737373;
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 1.125rem;
     font-weight: 400;
-    line-height: 1.65;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   p {
-    color: #6c757d;
-    font-size: 1rem;
+    color: #5c6b77;
+    font-size: 1.125rem;
     font-weight: 400;
-    line-height: 1.65;
+    line-height: 1.7;
     text-align: left;
   }
 
@@ -64,17 +64,17 @@
     text-wrap: balance;
   }
 
-  h1 { font-size: 2rem; line-height: 1.2; }
-  h2 { font-size: 1.75rem; line-height: 1.2; }
-  h3 { font-size: 1.375rem; line-height: 1.25; }
-  h4 { font-size: 1.125rem; line-height: 1.3; }
+  h1 { font-size: 2.75rem; line-height: 1.15; }
+  h2 { font-size: 2.375rem; line-height: 1.15; }
+  h3 { font-size: 1.625rem; line-height: 1.25; }
+  h4 { font-size: 1.375rem; line-height: 1.3; }
 
   /* Form controls, styled after the Association's existing website */
   input:not([type="checkbox"]):not([type="radio"]),
   select,
   textarea {
     font-family: var(--font-body);
-    font-size: 1rem;
+    font-size: 1.0625rem;
     line-height: 1.3;
     color: #333333;
     background-color: #ffffff;
@@ -125,7 +125,7 @@
 
 @utility container-page {
   width: 100%;
-  max-width: 1120px;
+  max-width: 1264px;
   margin-inline: auto;
   padding-inline: 1.25rem;
 
@@ -145,9 +145,9 @@
 
 /* Global body-copy style matching the EAZ print/web standard */
 @utility prose-body {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.7;
   color: #6c757d;
   text-align: left;
 }
@@ -215,4 +215,53 @@
   form {
     display: none;
   }
+}
+
+/* Subtle wave-line texture behind the membership band, matching the reference UI */
+.waves-bg {
+  background-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='216' viewBox='0 0 360 216'%3E%3Cg fill='none' stroke='%23eef2ef' stroke-width='2'%3E%3Cpath d='M-40 6q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 30q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 54q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 78q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 102q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 126q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 150q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 174q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 198q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3Cpath d='M-40 222q45-25 90 0t90 0t90 0t90 0t90 0'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Navbar hover dropdown "card pop" — hidden by default, pops on hover of the nav item */
+.dropdown-card {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+  transition: opacity 220ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1), visibility 220ms;
+}
+
+.group:hover > .dropdown-card,
+.group:focus-within > .dropdown-card {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Well-spaced, faint repeated "EAZ" watermark over wavy sections */
+.eaz-mark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='460' viewBox='0 0 600 460'%3E%3Cg fill='%230f3d25' fill-opacity='0.05' font-family='Arial, Helvetica, sans-serif' font-weight='900' font-size='60' letter-spacing='10'%3E%3Ctext x='140' y='150'%3EEAZ%3C/text%3E%3Ctext x='420' y='400'%3EEAZ%3C/text%3E%3C/g%3E%3C/svg%3E");
+  background-size: 600px 460px;
+}
+
+/* Auto-scrolling partner carousel */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.marquee-wrap {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
 }

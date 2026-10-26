@@ -8,30 +8,38 @@ const SLIDES = [
   {
     src: "/images/summit-2025-keynote.jpg",
     alt: "EAZ National Economic Summit 2025",
-    title: "EAZ National Economic Summit 2025",
-    detail: "Bringing together policymakers, private sector and development partners.",
-    href: "/conferences",
+    title: "Become the Economics Expert Employers Want",
+    detail:
+      "When economic policy is under pressure, employers trust EAZ-certified professionals to navigate uncertainty and lead with confidence.",
+    cta: "Explore EAZ Membership",
+    href: "/membership",
   },
   {
     src: "/images/media-briefing.jpg",
     alt: "EAZ media briefing on national economic affairs",
-    title: "Media Briefing on National Economic Affairs",
-    detail: "An open briefing on Zambia's economic landscape, challenges and opportunities.",
-    href: "/news/media-briefing-national-economic-affairs",
+    title: "Advancing Economic Research & Policy Dialogue",
+    detail:
+      "The Economics Association of Zambia brings together economists and allied professionals to shape Zambia's economic future.",
+    cta: "Learn More About Us",
+    href: "/about-us",
   },
   {
     src: "/images/boardroom.jpg",
     alt: "EAZ National Economic Summit 2024",
-    title: "EAZ National Economic Summit 2024",
-    detail: "Two days of presentations and panel discussions at Ciêla Resort, Lusaka.",
+    title: "EAZ National Economic Summit",
+    detail:
+      "Two days of presentations and panel discussions bringing together policymakers, private sector and development partners.",
+    cta: "View Conferences",
     href: "/conferences",
   },
   {
     src: "/images/members-meeting.webp",
     alt: "EAZ members meeting",
-    title: "EAZ Members Meeting",
-    detail: "Networking, dialogue and professional development for EAZ members.",
-    href: "/membership",
+    title: "Join a Network of Zambia's Leading Economists",
+    detail:
+      "Connect with professionals in economics, finance, business administration and allied fields across Zambia and beyond.",
+    cta: "Join EAZ Today",
+    href: "/members/register",
   },
 ];
 
@@ -47,91 +55,71 @@ export function HeroSlider() {
   const next = () => setActive((a) => (a + 1) % SLIDES.length);
 
   return (
-    <div className="bg-white px-4 py-4">
-      <section
-        aria-roledescription="carousel"
-        aria-label="EAZ highlights"
-        className="relative isolate mx-auto h-[440px] max-w-[1320px] overflow-hidden rounded-[6px] sm:h-[420px] lg:h-[430px]"
-      >
-        {SLIDES.map((s, i) => {
-          const isActive = i === active;
+    <section
+      aria-roledescription="carousel"
+      aria-label="EAZ highlights"
+      className="relative isolate h-[480px] w-full overflow-hidden sm:h-[520px] lg:h-[560px]"
+    >
+      {SLIDES.map((s, i) => {
+        const isActive = i === active;
+        return (
+          <div
+            key={s.src}
+            className="absolute inset-0 transition-opacity duration-700 ease-out"
+            style={{ opacity: isActive ? 1 : 0, pointerEvents: isActive ? "auto" : "none", zIndex: isActive ? 1 : 0 }}
+            aria-hidden={!isActive}
+          >
+            <Image src={s.src} alt={s.alt} fill priority={i === 0} sizes="100vw" className="object-cover" />
+            {/* Dark gradient overlay on left */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
-          return (
-            <div
-              key={s.src}
-              className="absolute inset-0 transition-opacity duration-700 ease-out"
-              style={{
-                opacity: isActive ? 1 : 0,
-                pointerEvents: isActive ? "auto" : "none",
-                zIndex: isActive ? 1 : 0,
-              }}
-              aria-hidden={!isActive}
-            >
-              {/* Full image — no overlay */}
-              <Image
-                src={s.src}
-                alt={s.alt}
-                fill
-                priority={i === 0}
-                sizes="100vw"
-                className="object-cover"
-              />
-
-              {/* Text sits bottom-left, bg only behind the text */}
-              <div className="absolute bottom-10 left-8 z-20 max-w-[480px]">
-                <h2 className="inline bg-[#198900] px-2 py-1 text-[20px] font-bold leading-[1.5] text-white box-decoration-clone sm:text-[22px] lg:text-[26px]">
+            <div className="absolute bottom-14 left-0 right-0 px-6 sm:px-10 lg:px-16 xl:px-24">
+              <div className="max-w-[620px]">
+                <h2 className="text-[32px] font-bold leading-[1.15] text-white sm:text-[44px] lg:text-[54px]">
                   {s.title}
                 </h2>
-                <p className="mt-2 inline-block bg-[rgba(25,137,0,0.85)] px-2 py-1 text-[13px] leading-relaxed text-white/90">
+                <p className="mt-5 text-[17px] leading-relaxed text-white/90 sm:text-[19px]">
                   {s.detail}
                 </p>
-                <div className="mt-3">
+                <div className="mt-6">
+                  {/* ASCM-style angled button */}
                   <Link
                     href={s.href}
-                    className="inline-block bg-white px-4 py-2 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-gold-bright"
+                    className="group relative inline-flex items-center gap-0 overflow-hidden border border-white text-white"
                   >
-                    Learn more
+                    <span className="px-6 py-3.5 text-[15px] font-bold uppercase tracking-[0.06em] transition-colors group-hover:bg-white group-hover:text-brand-deep">
+                      {s.cta}
+                    </span>
+                    <span className="flex h-full items-center bg-brand px-3 py-3 transition-colors group-hover:bg-brand-dark">
+                      <svg viewBox="0 0 10 14" className="h-3.5 w-2.5" fill="currentColor" aria-hidden>
+                        <path d="M1 1l7 6-7 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
+                      </svg>
+                    </span>
                   </Link>
                 </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        );
+      })}
 
-        {/* Prev / Next arrows */}
-        <button
-          type="button"
-          onClick={prev}
-          aria-label="Previous slide"
-          className="absolute left-3 top-1/2 z-30 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-full bg-black/30 text-[20px] text-white backdrop-blur-sm transition-colors hover:bg-gold-bright hover:text-brand-ink"
-        >
-          &#8249;
-        </button>
-        <button
-          type="button"
-          onClick={next}
-          aria-label="Next slide"
-          className="absolute right-3 top-1/2 z-30 -translate-y-1/2 grid h-9 w-9 place-items-center rounded-full bg-black/30 text-[20px] text-white backdrop-blur-sm transition-colors hover:bg-gold-bright hover:text-brand-ink"
-        >
-          &#8250;
-        </button>
+      {/* Arrows */}
+      <button type="button" onClick={prev} aria-label="Previous slide"
+        className="absolute left-4 top-1/2 z-30 -translate-y-1/2 grid h-10 w-10 place-items-center bg-black/30 text-white backdrop-blur-sm transition-colors hover:bg-brand">
+        &#8249;
+      </button>
+      <button type="button" onClick={next} aria-label="Next slide"
+        className="absolute right-4 top-1/2 z-30 -translate-y-1/2 grid h-10 w-10 place-items-center bg-black/30 text-white backdrop-blur-sm transition-colors hover:bg-brand">
+        &#8250;
+      </button>
 
-        {/* Dot indicators */}
-        <div className="absolute bottom-3 right-6 z-30 flex items-center gap-1.5">
-          {SLIDES.map((s, d) => (
-            <button
-              key={s.src}
-              type="button"
-              onClick={() => setActive(d)}
-              aria-label={`Go to slide ${d + 1}`}
-              aria-current={d === active}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                d === active ? "w-8 bg-gold-bright" : "w-1.5 bg-white/50 hover:bg-white/80"
-              }`}
-            />
-          ))}
-        </div>
-      </section>
-    </div>
+      {/* Dots */}
+      <div className="absolute bottom-4 right-6 z-30 flex items-center gap-2">
+        {SLIDES.map((s, d) => (
+          <button key={s.src} type="button" onClick={() => setActive(d)} aria-label={`Go to slide ${d + 1}`}
+            className={`h-2 rounded-full transition-all duration-300 ${d === active ? "w-8 bg-brand" : "w-2 bg-white/50 hover:bg-white/80"}`} />
+        ))}
+      </div>
+    </section>
   );
 }

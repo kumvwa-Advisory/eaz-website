@@ -53,21 +53,21 @@ export default function PrivacyPage() {
       <section className="container-page py-10 lg:py-14">
         <div className="max-w-2xl">
           {SECTIONS.map((section) => (
-            <div key={section.heading} className="mb-7 last:mb-0">
-              <h2 className="border-b border-rule pb-2 text-[18px] font-semibold">
+            <div key={section.heading} className="mb-8 last:mb-0">
+              <h2 className="border-b-2 border-brand-bright pb-2.5 text-[21px] font-bold text-[#0f3d25]">
                 {section.heading}
               </h2>
               {section.body.map((paragraph) => (
-                <p key={paragraph.slice(0, 40)} className="mt-2.5 text-[15px] leading-[1.8] text-ink-soft">
+                <p key={paragraph.slice(0, 40)} className="mt-3 text-[16.5px] leading-[1.8] text-[#4b4f58]">
                   {paragraph}
                 </p>
               ))}
             </div>
           ))}
 
-          <p className="mt-8 border-t border-rule pt-4 text-[14px] leading-relaxed text-ink-soft">
+          <p className="mt-9 border-t border-[#e8ebe8] pt-5 text-[15px] leading-relaxed text-[#4b4f58]">
             Enquiries about this policy may be directed to{" "}
-            <a href={`mailto:${ORG.email}`} className="text-ink underline decoration-brand/30 underline-offset-4">
+            <a href={`mailto:${ORG.email}`} className="font-bold text-brand hover:text-brand-dark">
               {ORG.email}
             </a>
             .

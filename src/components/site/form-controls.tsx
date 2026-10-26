@@ -3,16 +3,16 @@ import type { ReactNode } from "react";
 /* Field styling mirrors the Association's existing website: 16px system text,
    38px control height, 6px 10px padding, 1px #ccc border and 2px radius. */
 export const inputClass =
-  "w-full rounded-[4px] border-[1.5px] border-[#d3ddd3] bg-[#fbfdfb] px-3.5 py-[13px] text-[14.5px] text-ink placeholder:text-[#98a2b3] outline-none transition-colors focus:border-[#d3ddd3] focus:bg-white aria-invalid:border-[#dc2626] aria-invalid:bg-[#fef2f2]";
+  "w-full rounded-[2px] border-[1.5px] border-[#d3ddd3] bg-[#fbfdfb] px-3.5 py-[13px] text-[16px] text-ink placeholder:text-[#98a2b3] outline-none transition-colors focus:border-brand aria-invalid:border-[#dc2626] aria-invalid:bg-[#fef2f2]";
 
 export const textareaClass =
-  "w-full rounded-[4px] border-[1.5px] border-[#d3ddd3] bg-[#fbfdfb] px-3.5 py-[13px] text-[14.5px] text-ink placeholder:text-[#98a2b3] outline-none transition-colors focus:border-[#d3ddd3] focus:bg-white aria-invalid:border-[#dc2626] aria-invalid:bg-[#fef2f2] resize-none";
+  "w-full rounded-[2px] border-[1.5px] border-[#d3ddd3] bg-[#fbfdfb] px-3.5 py-[13px] text-[16px] text-ink placeholder:text-[#98a2b3] outline-none transition-colors focus:border-brand aria-invalid:border-[#dc2626] aria-invalid:bg-[#fef2f2] resize-none";
 
 export const selectClass =
-  "w-full rounded-[4px] border-[1.5px] border-[#d3ddd3] bg-[#fbfdfb] px-3.5 py-[13px] text-[14.5px] text-ink outline-none transition-colors focus:border-[#d3ddd3] focus:bg-white aria-invalid:border-[#dc2626]";
+  "w-full rounded-[2px] border-[1.5px] border-[#d3ddd3] bg-[#fbfdfb] px-3.5 py-[13px] text-[16px] text-ink outline-none transition-colors focus:border-brand aria-invalid:border-[#dc2626]";
 
 export const submitClass =
-  "inline-flex min-h-[46px] items-center justify-center rounded-[4px] bg-brand px-8 py-3 text-[13px] font-bold uppercase tracking-[0.1em] text-white disabled:opacity-60";
+  "inline-flex min-h-[48px] items-center justify-center bg-brand px-8 py-3 text-[16px] font-bold text-white transition-colors hover:bg-brand-dark disabled:opacity-60";
 
 export function Field({
   label,
@@ -33,7 +33,7 @@ export function Field({
 }) {
   return (
     <div className={className}>
-      <label htmlFor={htmlFor} className="mb-1.5 block text-[11px] font-bold uppercase tracking-[0.1em] text-[#6c757d]">
+      <label htmlFor={htmlFor} className="mb-1.5 block text-[14px] font-bold text-[#4b4f58]">
         {label}
         {required ? (
           <span className="ml-0.5 text-[#dc2626]" aria-hidden>
@@ -64,14 +64,14 @@ export function FormSuccess({
   resetLabel?: string;
 }) {
   return (
-    <div role="status" className="border border-brand/30 bg-brand-tint p-6">
-      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand text-white">
+    <div role="status" className="rounded-[2px] border-2 border-brand-bright bg-white p-6">
+      <span className="flex h-10 w-10 items-center justify-center bg-brand text-white">
         <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.8">
           <path d="M2.5 8.5l3.5 3.5 7.5-8" />
         </svg>
       </span>
-      <h3 className="mt-4 text-[20px] font-semibold text-ink">{title}</h3>
-      <div className="mt-2 space-y-2 text-[15px] leading-relaxed text-ink-soft">{children}</div>
+      <h3 className="mt-4 text-[22px] font-bold text-[#0f3d25]">{title}</h3>
+      <div className="mt-2 space-y-2 text-[16px] leading-relaxed text-[#4b4f58]">{children}</div>
       {onReset ? (
         <button
           type="button"
