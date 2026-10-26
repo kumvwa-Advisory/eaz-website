@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+@theme {
+  /* Roboto across the whole site */
+  --font-sans: var(--font-roboto), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font-body: var(--font-roboto), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+
+  /* EAZ brand palette, matched to eaz.org.zm */
+  --color-brand: #198900;
+  --color-brand-dark: #136b00;
+  --color-brand-deep: #111111;
+  --color-brand-ink: #111111;
+  --color-brand-tint: #f2f8ee;
+  --color-brand-soft: #e0efd7;
+  --color-brand-bright: #61ce70;
+
+  --color-ink: #16201a;
+  --color-ink-soft: #4b4f58;
+  --color-muted: #7a7a7a;
+  --color-rule: transparent;
+  --color-field: #cccccc;
+  --color-paper: #f7f8f6;
+  --color-gold: #a9812f;
+  --color-gold-bright: #f5c542;
+  --color-gold-deep: #d9a52f;
+  --color-gold-ink: #86641a;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.55;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #737373;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  p {
+    color: #6c757d;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.65;
+    text-align: left;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-sans);
+    color: #333333;
+    font-weight: 700;
+    letter-spacing: normal;
+    text-wrap: balance;
+  }
+
+  h1 { font-size: 2rem; line-height: 1.2; }
+  h2 { font-size: 1.75rem; line-height: 1.2; }
+  h3 { font-size: 1.375rem; line-height: 1.25; }
+  h4 { font-size: 1.125rem; line-height: 1.3; }
+
+  /* Form controls, styled after the Association's existing website */
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.3;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid var(--color-field);
+    border-radius: 2px;
+    padding: 6px 10px;
+    min-height: 38px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #999999;
+    opacity: 1;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  form button[type="submit"] {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-transform: none;
+    border-radius: 2px;
+    padding: 10px 15px;
+    min-height: 40px;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: #ffffff;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (min-width: 768px) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility card {
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.07), 0 4px 16px -4px rgba(0,0,0,0.08);
+  border: 1px solid transparent;
+}
+
+.prose-column p + p {
+  margin-top: 1.05em;
+}
+
+/* Global body-copy style matching the EAZ print/web standard */
+@utility prose-body {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #6c757d;
+  text-align: left;
+}
+
+.prose-body p + p {
+  margin-top: 1.1em;
+}
+
+/* Diagonal "/" cut on the right edge of the home hero panel */
+.hero-slash {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 52px) 100%, 0 100%);
+}
+
+@media (min-width: 640px) {
+  .hero-slash {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 88px) 100%, 0 100%);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-slash {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 116px) 100%, 0 100%);
+  }
+}
+
+/* Tabular figures for dates, fees and reference numbers */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Restrained, single-pass entrance for page headers only */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rise-late {
+  animation: rise 0.5s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise,
+  .rise-late {
+    animation: none;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  nav,
+  form {
+    display: none;
+  }
+}
