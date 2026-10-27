@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { POSTS, type Post } from "@/data/content";
 import { HeroSlider } from "@/components/site/hero-slider";
+import { HistorySection } from "@/components/site/history-section";
 
 /* ── Partners (EAZ equivalent of "Who We Work With") ── */
 const PARTNERS = [
@@ -203,7 +204,7 @@ export default function HomePage() {
 
         <div className="relative text-center">
           <h2 className="text-[34px] font-bold leading-tight text-[#0f3d25] lg:text-[42px]">
-            Who We Work With
+            Corporate Members
           </h2>
           <div className="mx-auto mt-3 h-[2px] w-[min(520px,78%)] bg-gradient-to-r from-brand via-[#3f9d5a] to-brand-bright" />
         </div>
@@ -230,6 +231,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── History of EAZ — term cards linking to organogram detail pages ── */}
+      <HistorySection />
 
       {/* ── What We Do — big bg image behind the card strip ── */}
       <section className="relative bg-white pt-16 pb-12 lg:pt-24 lg:pb-16">
