@@ -37,8 +37,18 @@ export function SiteHeader() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  const isCurrent = (href: string) =>
-    pathname === href || (href !== "/" && pathname?.startsWith(href));
+  const isCurrent = (href: string) => {
+    if (href === "/") return pathname === "/";
+    // only highlight the deepest matching nav item
+    const navHrefs = NAV.flatMap((n) => [
+      n.href,
+      ...(n.children?.map((c) => c.href) ?? []),
+    ]);
+    const best = navHrefs
+      .filter((h) => h !== "/" && pathname?.startsWith(h))
+      .sort((a, b) => b.length - a.length)[0];
+    return href === best;
+  };
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 bg-white shadow-sm transition-transform duration-300 ease-in-out ${

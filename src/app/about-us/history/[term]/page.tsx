@@ -38,7 +38,7 @@ export default async function TermPage({ params }: { params: Promise<Params> }) 
         title={`EAZ Leadership ${term.label}`}
         parents={[
           { label: "About Us", href: "/about-us" },
-          { label: "History", href: "/#history" },
+          { label: "History", href: "/about-us/history" },
         ]}
         lead={term.theme}
       />
@@ -140,7 +140,7 @@ export default async function TermPage({ params }: { params: Promise<Params> }) 
               </Link>
             ) : null}
           </div>
-          <ArrowWedgeButton href="/#history">All terms</ArrowWedgeButton>
+          <ArrowWedgeButton href="/about-us/history">All terms</ArrowWedgeButton>
         </div>
       </section>
     </>
